@@ -1,6 +1,5 @@
 <template>
     <button @click="fetchCovidCase()">test</button>
-    <div>{{CN.data}}</div>
 </template>
 <script>
 import axios from 'axios'
@@ -37,16 +36,33 @@ export default {
             startdate += "00:00:00Z"
             console.log(startdate, enddate)
             await axios.get('https://api.covid19api.com/total/country/' + 'AU' + '/status/confirmed?from=' + startdate + '&to=' + enddate).then(response => (this.AU = response))
+            this.AU.data.forEach(data => setDoc(doc(db, "Australia", data["Date"]), {
+                Country: "Australia", date: data["Date"], Cases: data["Cases"]
+            }))
             await axios.get('https://api.covid19api.com/total/country/' + 'CN' + '/status/confirmed?from=' + startdate + '&to=' + enddate).then(response => (this.CN = response))
             this.CN.data.forEach(data => setDoc(doc(db, "China", data["Date"]), {
                 Country: "China", date: data["Date"], Cases: data["Cases"]
             }))
             await axios.get('https://api.covid19api.com/total/country/' + 'ID' + '/status/confirmed?from=' + startdate + '&to=' + enddate).then(response => (this.ID = response))
+            this.ID.data.forEach(data => setDoc(doc(db, "Indonesia", data["Date"]), {
+                Country: "Indonesia", date: data["Date"], Cases: data["Cases"]
+            }))            
             await axios.get('https://api.covid19api.com/total/country/' + 'JP' + '/status/confirmed?from=' + startdate + '&to=' + enddate).then(response => (this.JP = response))
+            this.JP.data.forEach(data => setDoc(doc(db, "Japan", data["Date"]), {
+                Country: "Japan", date: data["Date"], Cases: data["Cases"]
+            }))            
             await axios.get('https://api.covid19api.com/total/country/' + 'KR' + '/status/confirmed?from=' + startdate + '&to=' + enddate).then(response => (this.KR = response))
+            this.KR.data.forEach(data => setDoc(doc(db, "South Korea", data["Date"]), {
+                Country: "South Korea", date: data["Date"], Cases: data["Cases"]
+            }))            
             await axios.get('https://api.covid19api.com/total/country/' + 'MY' + '/status/confirmed?from=' + startdate + '&to=' + enddate).then(response => (this.MY = response))
+            this.MY.data.forEach(data => setDoc(doc(db, "Malaysia", data["Date"]), {
+                Country: "Malaysia", date: data["Date"], Cases: data["Cases"]
+            }))            
             await axios.get('https://api.covid19api.com/total/country/' + 'US' + '/status/confirmed?from=' + startdate + '&to=' + enddate).then(response => (this.US = response))
-
+            this.US.data.forEach(data => setDoc(doc(db, "USA", data["Date"]), {
+                Country: "USA", date: data["Date"], Cases: data["Cases"]
+            }))
         }
     },
     mounted() {
